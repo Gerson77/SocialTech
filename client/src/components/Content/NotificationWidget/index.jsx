@@ -38,7 +38,7 @@ export default function NotificationWidget({ handleNotification }) {
     <div className="w-[420px] h-auto max-h-[500px] z-20 bg-gray-100 dark:bg-gray-800 shadow-md shadow-gray-900/100 overflow-y-auto absolute top-10 right-[-190px] rounded-lg">
       {Object.entries(groupedDataSave).map(([date, items]) => (
         <div key={date}>
-          <div className="bg-gray-700 dark:bg-gray-900 p-4 text-white">
+          <div className="bg-gray-700 dark:bg-gray-950 p-4 text-white">
             {dateCurrent === date ? (
               <h3>Hoje</h3>
             ) : (

@@ -55,8 +55,8 @@ export default function Notification({
         <Link to={`/profile/${idFriend}`} onClick={markStatusViewNotification}>
           <div
             className={`${!status
-              ? 'bg-white dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-gray-950'
-              : 'bg-gray-100 dark:bg-gray-600 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
+              ? 'bg-white dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-800'
+              : 'bg-gray-100 dark:bg-gray-400 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
             onClick={handleNotification}
             aria-hidden
           >
@@ -85,7 +85,7 @@ export default function Notification({
       ) : (
         <div
           className={`${!status
-            ? 'bg-white dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-gray-950'
+            ? 'bg-white dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-800'
             : 'bg-gray-100 dark:bg-gray-600 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
           aria-hidden
           onClick={getByPostId}
