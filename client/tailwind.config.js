@@ -1,0 +1,82 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: 'class',
+  content: [
+    './index.html', './src/**/*.{jsx, js}',
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      // colors: {
+      //   gray: {
+      //     0: '#FFFFFF',
+      //     10: '#F6F6F6',
+      //     50: '#F0F0F0',
+      //     100: '#E0E0E0',
+      //     200: '#C2C2C2',
+      //     300: '#A3A3A3',
+      //     400: '#858585',
+      //     500: '#666666',
+      //     600: '#4D4D4D',
+      //     700: '#333333',
+      //     800: '#1A1A1A',
+      //     900: '#0d0d0d',
+      //     950: '#0A0A0A',
+      //     1000: '#000000',
+      //   },
+      //   purple: {
+      //     50: '#f3eefc',
+      //     100: '#d8cbf7',
+      //     200: '#c6b2f3',
+      //     300: '#ab8eee',
+      //     400: '#9b79ea',
+      //     500: '#8257e5',
+      //     600: '#764fd0',
+      //     700: '#5c3ea3',
+      //     800: '#48307e',
+      //     900: '#372560',
+      //   },
+      //   green: {
+      //     50: '#e6fbef',
+      //     100: '#b1f1ce',
+      //     200: '#8cebb6',
+      //     300: '#57e295',
+      //     400: '#36dc81',
+      //     500: '#04d361',
+      //     600: '#04c058',
+      //     700: '#039645',
+      //     800: '#027435',
+      //     900: '#025929',
+      //   },
+      //   sky: {
+      //     50: '#E6FBFF',
+      //     100: '#CCF7FE',
+      //     200: '#99EEFD',
+      //     300: '#66E6FC',
+      //     400: '#33DDFB',
+      //     500: '#00D5FA',
+      //     600: '#00A0BC',
+      //     700: '#006B7D',
+      //     800: '#00353F',
+      //     900: '#001519',
+      //   },
+      // },
+      keyframes: {
+        spinReverse: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
+      animation: {
+        'spin-reverse': 'spinReverse 1.5s linear infinite reverse',
+      },
+    },
+  },
+  plugins: [
+    require('tailwind-animatecss'),
+    require('@tailwindcss/forms'),
+    require('autoprefixer'),
+  ],
+};
