@@ -19,8 +19,8 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
   const { user } = useSelector((state) => state.auth);
   const [isNotification, setIsNotification] = useState(false);
   const { notification } = useSelector((state) => state.notification);
-  const [menuBars, setMenuBars] = useState(null);
-  const [notificationSidebar, setNotification] = useState(null);
+  const [menuBars, setMenuBars] = useState(false);
+  const [notificationSidebar, setNotification] = useState(false);
 
   function handleNotification() {
     setIsNotification((preState) => !preState);
@@ -29,6 +29,15 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
 
   function handleNotificationMobile() {
     setNotification((preState) => !preState);
+  }
+
+  function openMenuBars() {
+    setMenuBars((preState) => !preState);
+  }
+
+  function closeMenuBars() {
+    setMenuBars(false);
+    setNotification(false);
   }
 
   function logoutUser() {
@@ -44,10 +53,6 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
   const notificationNotView = notification.filter(
     (notificationView) => notificationView.status === false,
   );
-
-  function openMenuBars() {
-    setMenuBars((preState) => !preState);
-  }
 
   useEffect(() => {
     document.body.style.overflow = menuBars ? 'hidden' : 'unset';
@@ -118,18 +123,20 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
                 <LogOut
                   className="cursor-pointer"
                   onClick={() => logoutUser()}
-
                 />
               </div>
             </div>
             {/* Mobile */}
-            <div className="flex lg:hidden flex-col items-center gap-1 dark:bg-gray-800 hover:bg-gray-200 hover:dark:bg-gray-600 rounded-full z-20 absolute top-1 right-2">
+            <div className="flex lg:hidden flex-col items-center gap-1 dark:bg-gray-800 hover:bg-gray-200 hover:dark:bg-gray-600 rounded-full z-20 absolute top-2 right-2">
               {/* Notificatrion */}
-              <button type="button" onClick={openMenuBars}>
+              <button type="button">
                 {menuBars ? (
-                  <X className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1" onClick={handleNotificationMobile} />
+                  <X
+                    className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1"
+                    onClick={closeMenuBars}
+                  />
                 ) : (
-                  <Menu className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1" />
+                  <Menu className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1" onClick={openMenuBars} />
                 )}
               </button>
             </div>
@@ -138,24 +145,23 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
             <div className="lg:hidden w-full h-full flex">
               <div
                 className="lg:hidden w-full flex flex-col justify-around items-center bg-gray-950 opacity-90 h-screen fixed left-0 top-0"
-                onClick={() => {
-                  openMenuBars();
-                  handleNotificationMobile();
-                }}
+                onClick={closeMenuBars}
                 aria-hidden
               />
               {notificationSidebar ? (
-                <div className="w-96 bg-gray-300 dark:bg-gray-900 items-center min-h-screen z-10 absolute top-0 right-0 animatecss animatecss-slideInRight animatecss-faster">
+                <div className="">
                   <button
                     type="button"
                     onClick={handleNotificationMobile}
-                    className="px-2 py-1 bg-gray-500 rounded-lg mt-2 ml-2"
+                    className="px-2 py-1 bg-gray-500 w-10 h-10 rounded-full mt-2 z-40 absolute right-2 top-0"
                   >
                     <MoveLeft />
                   </button>
-                  <NotificationWidget
-                    handleNotification={handleNotification}
-                  />
+                  <div className="w-96 overflow-y-auto bg-gray-100 z-30 dark:bg-gray-900 items-center min-h-screen absolute -top-2 right-0 animatecss animatecss-slideInRight animatecss-faster">
+                    <NotificationWidget
+                      handleNotification={handleNotification}
+                    />
+                  </div>
                 </div>
               ) : (
                 <div className="w-80 bg-gray-300 dark:bg-gray-900 flex flex-col pt-24 justify-start items-center min-h-screen z-10 absolute top-0 right-0 animatecss animatecss-slideInRight animatecss-faster">
@@ -183,6 +189,14 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
                   >
                     <Bell />
                   </button>
+
+                  <div className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex gap-2 justify-center">
+                    <span className="font-bold">{`${user.firstName} ${user.lastName}`}</span>
+                    <LogOut
+                      className="cursor-pointer"
+                      onClick={() => logoutUser()}
+                    />
+                  </div>
                 </div>
               )}
             </div>
