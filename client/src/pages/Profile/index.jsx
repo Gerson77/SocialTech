@@ -1,58 +1,47 @@
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Users2 } from 'lucide-react';
+import { UserPlus, Users2 } from 'lucide-react';
 
 import PostWidget from '../../components/Content/PostWidget';
 import UserWidget from '../../components/Content/UserWidget';
 import MyFriendList from '../../components/Content/MyFriendList';
-import PostService from '../../services/PostService';
-import UserService from '../../services/UserService';
-import FriendService from '../../services/FriendService';
 import Spinner from '../../components/Spinner';
+
+import DefaultImage from '../../assets/add-post.png';
+import MyPostWidget from '../../components/Content/MyPostWidget';
+import usePost from '../../hooks/usePost';
+import useFriend from '../../hooks/useFriend';
 
 export default function Profile() {
   const { idProfile } = useParams();
+  const { user } = useSelector((state) => state.auth);
   const { friends } = useSelector((state) => state.friends);
-  // const { user } = useSelector((state) => state.auth);
-  const [posts, setPosts] = useState([]);
-  const [friend, setFiend] = useState([]);
-  const [userProfile, setUserProfile] = useState({});
+  const postsUser = useSelector((state) => state.posts.posts);
+
+  const { getPostsByUser, postsByUser } = usePost();
+  const { getFriends, getInfoFriend, userProfile } = useFriend();
 
   // Carrega os post do usuário do perfil
   useEffect(() => {
-    async function getPosts() {
-      const postsList = await PostService.getByPostUser(idProfile);
-      setPosts(postsList);
-    }
-    getPosts();
-  }, [idProfile]);
+    getPostsByUser(idProfile);
+  }, [idProfile, postsUser]);
 
   // Carrega as informações do usuário do perfil
   useEffect(() => {
-    async function getInfoFriend() {
-      const infoFriend = await UserService.getUser(idProfile);
-      setUserProfile(infoFriend);
-    }
-
-    getInfoFriend();
+    getInfoFriend(idProfile);
   }, [idProfile]);
 
   // Carrega a lista de amigos do usuário do perfil atual
   useEffect(() => {
-    async function getInfoFriend() {
-      const infoFriend = await FriendService.getListFriends(idProfile);
-      setFiend(infoFriend);
-    }
-
-    getInfoFriend();
-  }, [idProfile, friends]);
+    getFriends(idProfile);
+  }, [idProfile]);
 
   return (
     <div className="w-full h-full max-w-screen-2xl m-auto py-6 px-4  text-gray-500">
       <div className="flex flex-col md:flex-row gap-6 justify-center pt-20">
         {/* UserWidget */}
-        <div className="w-full md:w-[40%] lg:max-w-[30%] 2xl:max-w-[26%] h-full flex flex-col gap-4">
+        <div className="w-full md:w-2/5 lg:max-w-[30%] 2xl:max-w-[26%] h-full flex flex-col gap-4">
           <UserWidget
             id={idProfile}
             firstName={userProfile.firstName}
@@ -62,19 +51,21 @@ export default function Profile() {
             location={userProfile.location}
             occupation={userProfile.occupation}
           />
-          {friend.length > 0 && (
+          {friends.length > 0 ? (
             <div className="hidden md:flex justify-between bg-white dark:bg-gray-800 flex-col p-4 rounded-xl">
               <div className="flex pb-2 gap-2 items-center">
-                <Users2 />
-                <h2 className="font-bold dark:text-gray-100 text-gray-500">
-                  Friend List
-                </h2>
+                <div className="flex gap-2">
+                  <Users2 />
+                  <h2 className="font-bold dark:text-gray-100 text-gray-500">
+                    Friend List
+                  </h2>
+                </div>
               </div>
-              {!friend ? (
+              {!friends ? (
                 <Spinner />
               ) : (
                 <>
-                  {friend.map(
+                  {friends.map(
                     ({
                       id, firstName, lastName, occupation, picturePath,
                     }) => (
@@ -91,36 +82,61 @@ export default function Profile() {
                 </>
               )}
             </div>
+          ) : (
+            <div className="hidden md:flex justify-between bg-white dark:bg-gray-800 flex-col p-4 rounded-xl">
+              <div className="flex gap-2">
+                <Users2 />
+                <h2 className="font-bold dark:text-gray-100 text-gray-500">
+                  Friend List
+                </h2>
+              </div>
+              <div className="flex py-4 gap-2 items-center justify-center">
+                <p>Adicione amigos a sua lista.</p>
+                <UserPlus />
+              </div>
+            </div>
           )}
         </div>
         {/* My posts */}
         <div className="w-full md:w-[60%] lg:max-w-[70%] 2xl:max-w-[48%] h-full flex flex-col gap-6">
-          {posts.map(
-            ({
-              id,
-              userId,
-              firstName,
-              lastName,
-              description,
-              location,
-              picturePath,
-              userPicturePath,
-              likes,
-              comments,
-            }) => (
-              <PostWidget
-                key={id}
-                postId={id}
-                postUserId={userId}
-                name={`${firstName} ${lastName}`}
-                description={description}
-                location={location}
-                picturePath={picturePath}
-                userPicturePath={userPicturePath}
-                likes={likes}
-                comments={comments}
-              />
-            ),
+          {idProfile === user.id && (
+            <MyPostWidget />
+          )}
+          {postsByUser.length > 0 ? (
+            <>
+              {postsByUser.map(
+                ({
+                  id,
+                  userId,
+                  firstName,
+                  lastName,
+                  description,
+                  location,
+                  picturePath,
+                  userPicturePath,
+                  likes,
+                  comments,
+                }) => (
+                  <PostWidget
+                    key={id}
+                    postId={id}
+                    postUserId={userId}
+                    name={`${firstName} ${lastName}`}
+                    description={description}
+                    location={location}
+                    picturePath={picturePath}
+                    userPicturePath={userPicturePath}
+                    likes={likes}
+                    comments={comments}
+                  />
+                ),
+              )}
+            </>
+          ) : (
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl flex flex-col items-center justify-center">
+              <img src={DefaultImage} alt="add-post" />
+              <h2 className="text-xl font-bold py-6">Adicione seu primeito post</h2>
+            </div>
           )}
         </div>
       </div>

@@ -5,6 +5,10 @@ class FriendService {
     this.httpClient = new HttpClient(`${import.meta.env.VITE_NODE_API_URL}`);
   }
 
+  async getByFriend(id) {
+    return this.httpClient.get(`/users/${id}`);
+  }
+
   async getListFriends(id) {
     return this.httpClient.get(`/users/${id}/friends`);
   }

@@ -17,7 +17,7 @@ export default function MyFriendList({
   const { handleRemoveFriend } = useActionUser();
 
   return (
-    <div className="flex justify-between py-2 items-center mx-2 border-b-[1px] border-gray-200 dark:border-gray-600">
+    <div className="flex justify-between py-2 items-center mx-2 dark:border-gray-600">
       <div className="flex flex-row items-center">
         <UserImage
           image={picturePath}

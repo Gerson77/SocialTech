@@ -17,7 +17,7 @@ export default function HomePage() {
   const { getFriends } = useFriend();
 
   useEffect(() => {
-    getFriends();
+    getFriends(user.id);
   }, []);
 
   return (

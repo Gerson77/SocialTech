@@ -102,9 +102,10 @@ export default function Register() {
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit}>
-      <div className="flex gap-4">
-        <div className="border-gray-100 dark:border-gray-700 my-6 p-4 border-[1px] rounded-md w-[40%] h-auto">
-          <div className="flex items-center justify-center hover:cursor-pointer dark:text-gray-800 text-gray-50 border-dashed border-[2px] border-sky-500 h-full">
+      <div className="flex flex-col md:flex-row gap-4">
+        {/* Preview image */}
+        <div className="border-gray-100 dark:border-gray-700 my-6 p-4 border-[1px] rounded-md w-full lg:w-2/5 h-auto">
+          <div className="flex items-center justify-center hover:cursor-pointer dark:text-gray-800 text-gray-50 border-dashed border-[2px] border-sky-500 h-full p-4">
             <Dropzone
               acceptedFiles=".jpg,.jpeg,.png"
               multiple={false}
@@ -122,7 +123,7 @@ export default function Register() {
                       <img
                         src={URL.createObjectURL(picturePath)}
                         alt=""
-                        className="w-full h-72"
+                        className="w-full md:w-10/12 h-72"
                       />
                     </div>
                   )}
@@ -131,7 +132,8 @@ export default function Register() {
             </Dropzone>
           </div>
         </div>
-        <div className="w-[60%] h-full justify-between flex flex-col">
+        {/* Inputs */}
+        <div className="w-full lg:w-7/12 h-full justify-between flex flex-col">
           <Input
             type="text"
             name="firstname"

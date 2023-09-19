@@ -46,7 +46,10 @@ export default function Login() {
   }
 
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col"
+      onSubmit={handleSubmit}
+    >
       <Input
         type="email"
         placeholder="Email"
@@ -64,7 +67,9 @@ export default function Login() {
       <button
         type="submit"
         disabled={!email || !password}
-        className={`${!email || !password ? 'bg-gray-500 cursor-not-allowed' : 'bg-sky-500 hover:bg-sky-600'} font-bold transition-all text-lg text-gray-50 py-4 rounded-md`}
+        className={`${!email || !password
+          ? 'bg-gray-500 cursor-not-allowed'
+          : 'bg-sky-500 hover:bg-sky-600'} font-bold transition-all text-lg text-gray-50 py-4 rounded-md`}
       >
         {loading ? <Spinner /> : 'Login'}
       </button>

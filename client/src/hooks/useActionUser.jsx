@@ -53,13 +53,13 @@ export default function useActionUser(postId, userId) {
     }
 
     getInfoUser();
-    getFriends();
+    getFriends(id);
   }
 
   async function handleRemoveFriend(idUser, friendId) {
     await FriendService.removedFriend(idUser, friendId);
     getInfoUser();
-    getFriends();
+    getFriends(id);
   }
 
   return {
