@@ -21,10 +21,10 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="w-full h-full max-w-[1600px] m-auto py-6 px-2 dark:text-gray-500 text-gray-700">
+    <div className="w-full h-full max-w-screen-2xl m-auto py-6 px-2 dark:text-gray-500 text-gray-700">
       <div className="flex gap-6 pt-20">
         {/* UserWidget */}
-        <div className="w-full max-w-[26%] h-full bg-white dark:bg-gray-800 py-4 rounded-xl">
+        <div className="hidden lg:block w-[32%] xl:w-[26%] h-full bg-white dark:bg-gray-800 py-4 rounded-xl">
           <UserWidget
             id={user.id}
             picturePath={user.picturePath || 'user.png'}
@@ -36,7 +36,7 @@ export default function HomePage() {
           />
         </div>
         {/* My posts and Content */}
-        <div className="flex gap-6 flex-col w-[48%] h-full">
+        <div className="flex gap-6 flex-col xl:w-[48%] sm:w-full h-full">
           {!idPost ? (
             <>
               <MyPostWidget />
@@ -48,7 +48,7 @@ export default function HomePage() {
         </div>
 
         {/* Advert and List friends */}
-        <div className="w-[26%] h-full">
+        <div className="hidden xl:block w-[26%] h-full ">
           <AdvertWidget />
           {friends.length > 0 && (
             <div className="flex justify-between bg-white dark:bg-gray-800 flex-col p-4 rounded-xl">

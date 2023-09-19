@@ -11,5 +11,4 @@ export interface IUserRepository {
     idFriend: string,
     listFriends: string[]
   ): Promise<User | null>;
-
 }

@@ -1,5 +1,5 @@
 import {
-  Bell, LogOut, MessageSquare, Moon, Search, Sun,
+  Bell, LogOut, Menu, MessageSquare, Moon, Search, Sun, X,
 } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,7 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
   const { user } = useSelector((state) => state.auth);
   const [isNotification, setIsNotification] = useState(false);
   const { notification } = useSelector((state) => state.notification);
+  const [menuBars, setMenuBars] = useState(null);
 
   function handleNotification() {
     setIsNotification((preState) => !preState);
@@ -38,11 +39,15 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
     (notificationView) => notificationView.status === false,
   );
 
+  function openMenuBars() {
+    setMenuBars((preState) => !preState);
+  }
+
   return (
     <div>
       {isAth ? (
         <div className="bg-white dark:bg-gray-800 py-2 px-4 fixed w-full border-b-[1px] dark:border-gray-700 z-10">
-          <div className="flex justify-between items-center text-gray-800 dark:text-gray-100 max-w-[1600px] m-auto p-2">
+          <div className="flex justify-between items-center text-gray-800 dark:text-gray-100 max-w-screen-2xl m-auto p-2">
             <div className="flex items-center">
               <Link
                 to="/"
@@ -50,7 +55,7 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
               >
                 SocialTech
               </Link>
-              <div className="relative">
+              <div className="relative hidden md:block">
                 <input
                   type="search"
                   placeholder="Search..."
@@ -59,7 +64,8 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
                 <Search className="absolute top-2 right-8" />
               </div>
             </div>
-            <div className="flex items-center gap-4">
+
+            <div className="hidden lg:flex items-center gap-4">
               <div className="cursor-pointer hover:dark:bg-gray-700 hover:bg-gray-100 rounded-full p-2">
                 {theme === 'dark' ? (
                   <Sun onClick={toggleTheme} />
@@ -105,11 +111,58 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
                 />
               </div>
             </div>
+            {/* Mobile */}
+            <div className="flex lg:hidden flex-col items-center gap-1 dark:bg-gray-800 hover:bg-gray-200 hover:dark:bg-gray-600 rounded-full z-20 absolute right-2">
+              {/* Notificatrion */}
+              <button type="button" onClick={openMenuBars}>
+                {menuBars ? (
+                  <X className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1" />
+                ) : (
+                  <Menu className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1" />
+                )}
+              </button>
+            </div>
+
+            {menuBars && (
+            <div className="lg:hidden w-full h-full flex">
+              <div
+                className="lg:hidden w-full flex flex-col justify-around items-center bg-gray-950 opacity-90 h-screen fixed left-0 top-0"
+                onClick={openMenuBars}
+                aria-hidden
+              />
+              <div className="w-80 bg-gray-300 dark:bg-gray-900 flex flex-col pt-24 justify-start items-center min-h-screen z-10 absolute top-0 right-0 animatecss animatecss-slideInRight animatecss-faster">
+                <button
+                  onClick={toggleTheme}
+                  type="button"
+                  className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
+                >
+                  {theme === 'dark' ? (
+                    <Sun />
+                  ) : (
+                    <Moon />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
+                >
+                  <MessageSquare />
+                </button>
+                <button
+                  type="button"
+                  className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
+                >
+                  <Bell />
+                </button>
+              </div>
+            </div>
+            )}
+            {/*  */}
           </div>
         </div>
       ) : (
         <div className=" bg-white dark:bg-gray-800 py-2 px-4">
-          <div className="flex justify-center items-center text-gray-800 dark:text-gray-100 max-w-[1600px] m-auto p-2">
+          <div className="flex justify-center items-center text-gray-800 dark:text-gray-100 max-w-screen-2xl m-auto p-2">
             <Link
               to="/"
               className="text-4xl font-bold text-sky-500 hover:text-sky-600 transition-all"

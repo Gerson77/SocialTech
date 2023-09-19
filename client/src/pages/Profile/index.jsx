@@ -49,10 +49,10 @@ export default function Profile() {
   }, [idProfile, friends]);
 
   return (
-    <div className="w-full h-full max-w-[1600px] m-auto py-6 px-4  text-gray-500">
-      <div className="flex gap-6 justify-center pt-20">
+    <div className="w-full h-full max-w-screen-2xl m-auto py-6 px-4  text-gray-500">
+      <div className="flex flex-col md:flex-row gap-6 justify-center pt-20">
         {/* UserWidget */}
-        <div className="w-full max-w-[26%] h-full gap-4 flex flex-col">
+        <div className="w-full md:w-[40%] lg:max-w-[30%] 2xl:max-w-[26%] h-full flex flex-col gap-4">
           <UserWidget
             id={idProfile}
             firstName={userProfile.firstName}
@@ -63,7 +63,7 @@ export default function Profile() {
             occupation={userProfile.occupation}
           />
           {friend.length > 0 && (
-            <div className="flex justify-between bg-white dark:bg-gray-800 flex-col p-4 rounded-xl">
+            <div className="hidden md:flex justify-between bg-white dark:bg-gray-800 flex-col p-4 rounded-xl">
               <div className="flex pb-2 gap-2 items-center">
                 <Users2 />
                 <h2 className="font-bold dark:text-gray-100 text-gray-500">
@@ -94,7 +94,7 @@ export default function Profile() {
           )}
         </div>
         {/* My posts */}
-        <div className="flex gap-6 flex-col w-[48%] h-full">
+        <div className="w-full md:w-[60%] lg:max-w-[70%] 2xl:max-w-[48%] h-full flex flex-col gap-6">
           {posts.map(
             ({
               id,

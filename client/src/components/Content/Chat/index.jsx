@@ -41,7 +41,7 @@ export default function Chat() {
   });
 
   return (
-    <div className="flex justify-between m-auto gap-4 max-w-[1600px] pt-24 h-[98vh] min-h-[98vh] max-h-[98vh] px-2">
+    <div className="flex justify-between m-auto gap-4 max-w-screen-2xl pt-24 h-[98vh] min-h-[98vh] max-h-[98vh] px-2">
       <div className="flex flex-col max-w-[20%] w-1/5 bg-white dark:bg-gray-800 rounded-xl">
         <div className="flex items-center py-4 px-2 gap-1 rounded-t-xl font-extrabold text-xl text-white">
           <MessageCircle />
