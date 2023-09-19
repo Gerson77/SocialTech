@@ -1,9 +1,9 @@
 import {
-  Bell, LogOut, Menu, MessageSquare, Moon, Search, Sun, X,
+  Bell, LogOut, Menu, MessageSquare, Moon, MoveLeft, Search, Sun, X,
 } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setLogout } from '../../state/slices/auth';
@@ -20,9 +20,15 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
   const [isNotification, setIsNotification] = useState(false);
   const { notification } = useSelector((state) => state.notification);
   const [menuBars, setMenuBars] = useState(null);
+  const [notificationSidebar, setNotification] = useState(null);
 
   function handleNotification() {
     setIsNotification((preState) => !preState);
+    setNotification((preState) => !preState);
+  }
+
+  function handleNotificationMobile() {
+    setNotification((preState) => !preState);
   }
 
   function logoutUser() {
@@ -42,6 +48,10 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
   function openMenuBars() {
     setMenuBars((preState) => !preState);
   }
+
+  useEffect(() => {
+    document.body.style.overflow = menuBars ? 'hidden' : 'unset';
+  }, [menuBars]);
 
   return (
     <div>
@@ -112,11 +122,11 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
               </div>
             </div>
             {/* Mobile */}
-            <div className="flex lg:hidden flex-col items-center gap-1 dark:bg-gray-800 hover:bg-gray-200 hover:dark:bg-gray-600 rounded-full z-20 absolute right-2">
+            <div className="flex lg:hidden flex-col items-center gap-1 dark:bg-gray-800 hover:bg-gray-200 hover:dark:bg-gray-600 rounded-full z-20 absolute top-1 right-2">
               {/* Notificatrion */}
               <button type="button" onClick={openMenuBars}>
                 {menuBars ? (
-                  <X className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1" />
+                  <X className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1" onClick={handleNotificationMobile} />
                 ) : (
                   <Menu className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:dark:text-gray-100 p-1" />
                 )}
@@ -127,34 +137,53 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
             <div className="lg:hidden w-full h-full flex">
               <div
                 className="lg:hidden w-full flex flex-col justify-around items-center bg-gray-950 opacity-90 h-screen fixed left-0 top-0"
-                onClick={openMenuBars}
+                onClick={() => {
+                  openMenuBars();
+                  handleNotificationMobile();
+                }}
                 aria-hidden
               />
-              <div className="w-80 bg-gray-300 dark:bg-gray-900 flex flex-col pt-24 justify-start items-center min-h-screen z-10 absolute top-0 right-0 animatecss animatecss-slideInRight animatecss-faster">
-                <button
-                  onClick={toggleTheme}
-                  type="button"
-                  className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
-                >
-                  {theme === 'dark' ? (
-                    <Sun />
-                  ) : (
-                    <Moon />
-                  )}
-                </button>
-                <button
-                  type="button"
-                  className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
-                >
-                  <MessageSquare />
-                </button>
-                <button
-                  type="button"
-                  className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
-                >
-                  <Bell />
-                </button>
-              </div>
+              {notificationSidebar ? (
+                <div className="w-96 bg-gray-300 dark:bg-gray-900 items-center min-h-screen z-10 absolute top-0 right-0 animatecss animatecss-slideInRight animatecss-faster">
+                  <button
+                    type="button"
+                    onClick={handleNotificationMobile}
+                    className="px-2 py-1 bg-gray-500 rounded-lg mt-2 ml-2"
+                  >
+                    <MoveLeft />
+                  </button>
+                  <NotificationWidget
+                    handleNotification={handleNotification}
+                  />
+                </div>
+              ) : (
+                <div className="w-80 bg-gray-300 dark:bg-gray-900 flex flex-col pt-24 justify-start items-center min-h-screen z-10 absolute top-0 right-0 animatecss animatecss-slideInRight animatecss-faster">
+                  <button
+                    onClick={toggleTheme}
+                    type="button"
+                    className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
+                  >
+                    {theme === 'dark' ? (
+                      <Sun />
+                    ) : (
+                      <Moon />
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
+                  >
+                    <MessageSquare />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNotificationMobile}
+                    className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
+                  >
+                    <Bell />
+                  </button>
+                </div>
+              )}
             </div>
             )}
             {/*  */}

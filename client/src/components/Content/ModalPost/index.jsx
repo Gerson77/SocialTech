@@ -10,26 +10,27 @@ import { useSelector } from 'react-redux';
 import Comments from '../Comments';
 
 import CommentService from '../../../services/CommentService';
-import PostService from '../../../services/PostService';
 import UserImage from '../../UserImage';
 import useActionUser from '../../../hooks/useActionUser';
 import Textarea from '../../Textarea';
+import usePost from '../../../hooks/usePost';
 
 export default function ModalPost({ toggleComment, postId, likes }) {
   const [allComments, setAllComments] = useState([]);
-  const [post, setPost] = useState({});
   const user = useSelector((state) => state.auth.user);
   const isLiked = likes.find((likeAdd) => likeAdd === user.id);
   const [addCommnets, setAddComments] = useState('');
   const [viewMore, setViewMore] = useState(false);
 
   const {
-    picturePath, description,
-  } = post;
-
-  const {
     handleLike, handleRemoveLike,
   } = useActionUser(postId, user.id);
+
+  const { post, getListPost } = usePost();
+
+  const {
+    picturePath, description,
+  } = post;
 
   async function getComments() {
     const postsList = await CommentService.listComments(postId);
@@ -41,11 +42,7 @@ export default function ModalPost({ toggleComment, postId, likes }) {
   }, [postId]);
 
   useEffect(() => {
-    async function getListPost() {
-      const postSingle = await PostService.getSinglePost(postId);
-      setPost(postSingle);
-    }
-    getListPost();
+    getListPost(postId);
   }, [postId]);
 
   async function handleAddComments() {

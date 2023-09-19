@@ -14,7 +14,6 @@ dayjs.extend(dayjsRelativeTime);
 dayjs.extend(advancedFormat);
 dayjs.locale(ptBR);
 
-// dayjs().tz('America/Sao_Paulo').format('DD/MM/YYYY z');
 const timeZone = dayjs.tz.guess();
 dayjs().tz(timeZone).format('DD/MM/YYYY z');
 
@@ -35,7 +34,7 @@ export default function NotificationWidget({ handleNotification }) {
   }, {});
 
   return (
-    <div className="w-[420px] h-auto max-h-[500px] z-20 bg-gray-100 dark:bg-gray-800 shadow-md shadow-gray-900/100 overflow-y-auto absolute top-10 right-[-190px] rounded-lg">
+    <div className="w-full lg:w-[420px] h-auto lg:max-h-[500px] z-20 bg-gray-100 dark:bg-gray-800 shadow-md shadow-gray-900/100 overflow-y-auto absolute mt-2 lg:top-10 lg:right-[-190px] lg:rounded-lg">
       {Object.entries(groupedDataSave).map(([date, items]) => (
         <div key={date}>
           <div className="bg-gray-700 dark:bg-gray-950 p-4 text-white">

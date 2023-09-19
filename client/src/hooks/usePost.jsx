@@ -6,6 +6,7 @@ import { getPostsSuccess } from '../state/slices/posts';
 export default function usePost() {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
+  const [post, setPost] = useState({});
 
   const [postsByUser, setPostsByUser] = useState([]);
 
@@ -21,7 +22,12 @@ export default function usePost() {
     setPostsByUser(postsList);
   }
 
+  async function getListPost(postId) {
+    const postSingle = await PostService.getSinglePost(postId);
+    setPost(postSingle);
+  }
+
   return {
-    getPosts, posts, getPostsByUser, postsByUser,
+    getPosts, posts, getPostsByUser, postsByUser, post, getListPost,
   };
 }

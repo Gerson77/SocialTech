@@ -55,8 +55,8 @@ export default function Notification({
         <Link to={`/profile/${idFriend}`} onClick={markStatusViewNotification}>
           <div
             className={`${!status
-              ? 'bg-white dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-800'
-              : 'bg-gray-100 dark:bg-gray-400 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
+              ? 'bg-white dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-gray-800'
+              : 'bg-gray-100 dark:bg-gray-500 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
             onClick={handleNotification}
             aria-hidden
           >
@@ -77,16 +77,17 @@ export default function Notification({
               </div>
               <Heart className="text-sky-400" />
             </div>
-            <p className="text-gray-500 dark:text-gray-300 px-2 border-b-[1px] border-gray-400">
-              {dayjs(createdAt).fromNow()}
-            </p>
+            <div className="flex justify-between text-gray-500 dark:text-gray-300 px-2 border-b-[1px] border-gray-400">
+              <span>{dayjs(createdAt).fromNow()}</span>
+              <span>{`${dayjs(Number(savedAt)).format('DD/MM/YYYY HH:mm')}`}</span>
+            </div>
           </div>
         </Link>
       ) : (
         <div
           className={`${!status
-            ? 'bg-white dark:bg-gray-700 hover:bg-gray-200 hover:dark:bg-gray-800'
-            : 'bg-gray-100 dark:bg-gray-600 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
+            ? 'bg-white dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-gray-800'
+            : 'bg-gray-100 dark:bg-gray-500 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
           aria-hidden
           onClick={getByPostId}
         >
