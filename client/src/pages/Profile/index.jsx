@@ -7,11 +7,12 @@ import PostWidget from '../../components/Content/PostWidget';
 import UserWidget from '../../components/Content/UserWidget';
 import MyFriendList from '../../components/Content/MyFriendList';
 import Spinner from '../../components/Spinner';
-
-import DefaultImage from '../../assets/add-post.png';
 import MyPostWidget from '../../components/Content/MyPostWidget';
+
 import usePost from '../../hooks/usePost';
 import useFriend from '../../hooks/useFriend';
+
+import DefaultImage from '../../assets/add-post.png';
 
 export default function Profile() {
   const { idProfile } = useParams();
