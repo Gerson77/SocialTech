@@ -118,6 +118,7 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
                 <LogOut
                   className="cursor-pointer"
                   onClick={() => logoutUser()}
+
                 />
               </div>
             </div>
