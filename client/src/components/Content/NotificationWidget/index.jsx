@@ -17,14 +17,14 @@ dayjs.locale(ptBR);
 const timeZone = dayjs.tz.guess();
 dayjs().tz(timeZone).format('DD/MM/YYYY z');
 
-const dateCurrent = (dayjs().format('DD/MM/YYYY'));
+const dateCurrent = (dayjs().format('D[ de ]MMMM[, ]YYYY'));
 
 export default function NotificationWidget({ handleNotification }) {
   const { notification } = useSelector((state) => state.notification);
 
   const groupedDataSave = notification.reduce((groups, item) => {
     const { savedAt } = item;
-    const dateConverted = dayjs(Number(savedAt)).format('DD/MM/YYYY');
+    const dateConverted = dayjs(Number(savedAt)).format('D[ de ]MMMM[, ]YYYY');
 
     if (!groups[dateConverted]) {
       groups[dateConverted] = [];
