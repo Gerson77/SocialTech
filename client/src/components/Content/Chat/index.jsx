@@ -42,7 +42,7 @@ export default function Chat() {
 
   return (
     <div className="flex justify-between m-auto gap-4 max-w-screen-2xl pt-24 h-[98vh] min-h-[98vh] max-h-[98vh] px-2">
-      <div className="flex flex-col max-w-[20%] w-1/5 bg-white dark:bg-gray-800 rounded-xl">
+      <div className="hidden lg:flex flex-col lg:w-2/6 xl:w-1/5 bg-white dark:bg-gray-800 rounded-xl">
         <div className="flex items-center py-4 px-2 gap-1 rounded-t-xl font-extrabold text-xl text-white">
           <MessageCircle />
           <h2>
@@ -107,7 +107,7 @@ export default function Chat() {
       )}
 
       {/* List frends */}
-      <div className="w-1/5 h-full bg-white dark:bg-gray-800 rounded-xl">
+      <div className="hidden lg:w-1/5 xl:block h-full bg-white dark:bg-gray-800 rounded-xl">
         <div className="flex flex-col items-center py-2 mx-2">
           <div className="w-full flex items-center py-4 px-2 gap-1 rounded-t-xl font-extrabold text-xl text-white border-b-[1px] border-gray-100 dark:border-gray-600">
             <User2 />

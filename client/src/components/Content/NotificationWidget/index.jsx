@@ -19,7 +19,7 @@ dayjs().tz(timeZone).format('DD/MM/YYYY z');
 
 const dateCurrent = (dayjs().format('D[ de ]MMMM[, ]YYYY'));
 
-export default function NotificationWidget({ handleNotification }) {
+export default function NotificationWidget({ handleNotification, closeMenuBars }) {
   const { notification } = useSelector((state) => state.notification);
 
   const groupedDataSave = notification.reduce((groups, item) => {
@@ -73,6 +73,7 @@ export default function NotificationWidget({ handleNotification }) {
                   handleNotification={handleNotification}
                   status={status}
                   savedAt={savedAt}
+                  closeMenuBars={closeMenuBars}
                 />
               ),
             )}
@@ -85,4 +86,5 @@ export default function NotificationWidget({ handleNotification }) {
 
 NotificationWidget.propTypes = {
   handleNotification: PropTypes.func.isRequired,
+  closeMenuBars: PropTypes.func.isRequired,
 };

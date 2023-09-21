@@ -36,8 +36,8 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
   }
 
   function closeMenuBars() {
-    setMenuBars(false);
     setNotification(false);
+    setMenuBars(false);
   }
 
   function logoutUser() {
@@ -159,6 +159,7 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
                   </button>
                   <div className="w-96 overflow-y-auto bg-gray-100 z-30 dark:bg-gray-900 items-center min-h-screen absolute -top-2 right-0 animatecss animatecss-slideInRight animatecss-faster">
                     <NotificationWidget
+                      closeMenuBars={closeMenuBars}
                       handleNotification={handleNotification}
                     />
                   </div>
@@ -180,7 +181,9 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
                     type="button"
                     className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 hover:dark:bg-gray-700 hover:text-white w-full py-8 text-center border-b-[1px] flex justify-center"
                   >
-                    <MessageSquare />
+                    <Link to="/messages">
+                      <MessageSquare />
+                    </Link>
                   </button>
                   <button
                     type="button"

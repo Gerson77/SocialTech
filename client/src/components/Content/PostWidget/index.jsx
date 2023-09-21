@@ -208,7 +208,7 @@ export default function PostWidget({
                   ) : (
                     <TogglePost
                       toggleEditPost={toggleEditPost}
-                      toogleDeletePost={handleBoxDialog}
+                      toggleDeletePost={handleBoxDialog}
                     />
                   )}
                 </div>

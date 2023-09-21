@@ -27,6 +27,7 @@ export default function Notification({
   createdAt,
   idFriend,
   handleNotification,
+  closeMenuBars,
   idPost,
   status,
   savedAt,
@@ -60,12 +61,21 @@ export default function Notification({
   return (
     <div>
       {action === 'follow' ? (
-        <Link to={`/profile/${idFriend}`} onClick={markStatusViewNotification}>
+        <Link
+          to={`/profile/${idFriend}`}
+          onClick={() => {
+            closeMenuBars();
+            markStatusViewNotification();
+          }}
+        >
           <div
             className={`${!status
               ? 'bg-white dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-gray-800'
               : 'bg-gray-100 dark:bg-gray-500 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
-            onClick={handleNotification}
+            onClick={() => {
+              closeMenuBars();
+              markStatusViewNotification();
+            }}
             aria-hidden
           >
             <div className="flex justify-between gap-2 items-center py-2 px-4">
@@ -87,7 +97,7 @@ export default function Notification({
             </div>
             <div className="flex justify-between text-gray-500 dark:text-gray-300 px-2 border-b-[1px] border-gray-400">
               <span>{dayjs(createdAt).fromNow()}</span>
-              <span>{`${dayjs(Number(savedAt)).format('DD/MM/YYYY HH:mm')}`}</span>
+              <span>{`${dayjs(Number(savedAt)).format('DD/MM/YYYY HH:mm A')}`}</span>
             </div>
           </div>
         </Link>
@@ -95,27 +105,32 @@ export default function Notification({
         <div
           className={`${!status
             ? 'bg-white dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-gray-800'
-            : 'bg-gray-100 dark:bg-gray-500 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full`}
+            : 'bg-gray-100 dark:bg-gray-500 hover:bg-gray-300 hover:dark:bg-gray-800 opacity-75'} h-full w-full cursor-pointer`}
           aria-hidden
-          onClick={getByPostId}
+          onClick={() => {
+            getByPostId();
+            closeMenuBars();
+          }}
         >
           <div className="flex justify-between gap-2 items-center py-2 px-4">
-            <div className="flex items-center gap-1 max-w-[80%]">
-              <UserImage
-                image={userPicturePath}
-                alt="user"
-              />
+            <div className="flex items-center justify-end gap-2 max-w-full">
+              <div className="min-w-[60px] min-h-[60px]">
+                <UserImage
+                  image={userPicturePath}
+                  alt="user"
+                />
+              </div>
               {action === 'likes' && (
-              <p className="text-gray-800 dark:text-gray-100 ml-2 font-light">
-                <strong className="text-gray-700 hover:text-sky-600 dark:text-gray-200 pr-2 font-bold">{firstName}</strong>
+              <p className="text-gray-800 dark:text-gray-100 font-light">
+                <strong className="text-gray-700 dark:text-gray-200 pr-1 font-bold">{firstName}</strong>
                 Curtiu sua publicação
               </p>
               )}
               {action === 'comments' && (
-              <p className="text-gray-800 dark:text-gray-100 ml-2 font-light">
-                <strong className="text-gray-700 hover:text-sky-600 dark:text-gray-200 pr-2 font-bold">{firstName}</strong>
-                {`Comentou no seu post: ${contentComment.substring(0, 5)}...`}
-              </p>
+                <p className="text-gray-800 dark:text-gray-100 font-light">
+                  <strong className="text-gray-700 dark:text-gray-200 pr-1 font-bold">{firstName}</strong>
+                  {`Comentou na sua publicação: ${contentComment.substring(0, 5)}...`}
+                </p>
               )}
             </div>
             <div className="w-16 h-16 flex items-center justify-end max-w-[20%]">
@@ -131,7 +146,7 @@ export default function Notification({
               {`${dayjs(createdAt).fromNow()}`}
             </span>
             <span>
-              {`${dayjs(Number(savedAt)).format('DD/MM/YYYY HH:mm')}`}
+              {`${dayjs(Number(savedAt)).format('DD/MM/YYYY HH:mm A')}`}
             </span>
           </div>
         </div>
@@ -151,6 +166,7 @@ Notification.propTypes = {
   idFriend: PropTypes.string.isRequired,
   idPost: PropTypes.string,
   handleNotification: PropTypes.func,
+  closeMenuBars: PropTypes.func,
   status: PropTypes.bool.isRequired,
   savedAt: PropTypes.number.isRequired,
 };
@@ -159,5 +175,6 @@ Notification.defaultProps = {
   contentComment: 'string',
   postPicturePath: 'string',
   handleNotification: () => {},
+  closeMenuBars: () => {},
   idPost: '',
 };
