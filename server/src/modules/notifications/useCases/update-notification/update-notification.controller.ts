@@ -6,11 +6,11 @@ export class UpdateNotificationController {
     constructor(private notificationRepository: INotificationRepository){}
     async handle(request: Request, response: Response) {
         try {
-            const { id } = request.params
+            const { id, userId } = request.params
             const status = request.body
 
             const updateNotificationUseCase = new UpdateNotificationUseCase(this.notificationRepository)
-            const result = await updateNotificationUseCase.execute(id, status)
+            const result = await updateNotificationUseCase.execute(id, userId, status)
             return response.json(result)
         } catch (err: any) {
             return response.status(404).json(err.message)

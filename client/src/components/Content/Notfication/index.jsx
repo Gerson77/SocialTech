@@ -5,7 +5,7 @@ import ptBR from 'dayjs/locale/pt-br';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import UserImage from '../../UserImage';
 import ImagePost from '../../ImagePost';
@@ -34,18 +34,26 @@ export default function Notification({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { posts } = useSelector((state) => state.posts);
+  const { user } = useSelector((state) => state.auth);
+
   async function markStatusViewNotification() {
-    await NotificationService.markNotificationRead(id);
-    getNotificationSuccess();
+    const notificationsUpdate = await NotificationService.markNotificationRead(user.id, id);
+    dispatch(getNotificationSuccess(notificationsUpdate));
   }
 
   async function getByPostId() {
-    const response = await PostService.getSinglePost(idPost);
-    dispatch(getByPostSuccess(response));
+    const postFilter = posts.filter((post) => post.id === idPost);
+
+    if (!postFilter) {
+      const response = await PostService.getSinglePost(idPost);
+      dispatch(getByPostSuccess(response));
+    }
+
+    dispatch(getByPostSuccess(postFilter[0]));
     handleNotification();
 
-    await NotificationService.markNotificationRead(id);
-    getNotificationSuccess();
+    await markStatusViewNotification();
     navigate(`/post/${idPost}`);
   }
 

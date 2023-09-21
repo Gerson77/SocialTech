@@ -13,8 +13,10 @@ class NotificationService {
     return this.httpClient.post(`/notifications/${id}`, { body: formData });
   }
 
-  async markNotificationRead(id) {
-    return this.httpClient.put(`/notifications/${id}`, { body: { status: true } });
+  async markNotificationRead(userId, id) {
+    // /notifications/:userId/notification/:id
+    // return this.httpClient.put(`/notifications/${id}`, { body: { status: true } });
+    return this.httpClient.put(`/notifications/${userId}/notification/${id}`, { body: { status: true } });
   }
 }
 

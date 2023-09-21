@@ -3,7 +3,7 @@ import { INotificationRepository } from "../../repositories/notification.reposit
 export class UpdateNotificationUseCase {
   constructor(private notificationRepository: INotificationRepository) {}
 
-  async execute(id: string, data: boolean) {
+  async execute(id: string, userId: string, status: boolean) {
     const notification = await this.notificationRepository.findByNotificationId(
       id
     );
@@ -12,10 +12,10 @@ export class UpdateNotificationUseCase {
       throw new Error("Notification does not exists");
     }
 
-    if (data) {
-      const updateStatusNotification =
-        await this.notificationRepository.updateStatusNotification(id);
-      return updateStatusNotification;
-    }
+    if (status) await this.notificationRepository.updateStatusNotification(id);
+    
+    const notifications = await this.notificationRepository.findByAllNotificationUser(userId)
+
+    return notifications
   }
 }

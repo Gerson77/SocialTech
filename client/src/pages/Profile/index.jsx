@@ -9,7 +9,6 @@ import MyFriendList from '../../components/Content/MyFriendList';
 import Spinner from '../../components/Spinner';
 import MyPostWidget from '../../components/Content/MyPostWidget';
 
-import usePost from '../../hooks/usePost';
 import useFriend from '../../hooks/useFriend';
 
 import DefaultImage from '../../assets/add-post.png';
@@ -18,15 +17,11 @@ export default function Profile() {
   const { idProfile } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { friends } = useSelector((state) => state.friends);
-  const postsUser = useSelector((state) => state.posts.posts);
+  const { posts } = useSelector((state) => state.posts);
 
-  const { getPostsByUser, postsByUser } = usePost();
+  const postFilterByUserProfile = posts.filter((post) => post.userId === idProfile);
+
   const { getFriends, getInfoFriend, userProfile } = useFriend();
-
-  // Carrega os post do usuário do perfil
-  useEffect(() => {
-    getPostsByUser(idProfile);
-  }, [idProfile, postsUser]);
 
   // Carrega as informações do usuário do perfil
   useEffect(() => {
@@ -103,9 +98,9 @@ export default function Profile() {
           {idProfile === user.id && (
             <MyPostWidget />
           )}
-          {postsByUser.length > 0 ? (
+          {postFilterByUserProfile.length > 0 ? (
             <>
-              {postsByUser.map(
+              {postFilterByUserProfile.map(
                 ({
                   id,
                   userId,

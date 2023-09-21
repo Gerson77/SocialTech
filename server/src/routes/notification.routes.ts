@@ -13,7 +13,7 @@ notificationRouter.get('/notifications/:userId', async (request, response) => {
     await readAllNotificationController.handle(request, response)
 })
 
-notificationRouter.put('/notifications/:id', async (request, response) => {
+notificationRouter.put('/notifications/:userId/notification/:id', async (request, response) => {
     await updateNotificationController.handle(request, response)
 })
 export { notificationRouter }
