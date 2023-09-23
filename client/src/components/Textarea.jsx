@@ -8,7 +8,7 @@ export default function Textarea({
 
   const handleInput = (e) => {
     if (ref.current) {
-      ref.current.style.height = 'auto';
+      ref.current.style.height = '100px';
       ref.current.style.height = `${e.target.scrollHeight - 100}px`;
     }
   };
@@ -21,7 +21,9 @@ export default function Textarea({
       onInput={handleInput}
       onChange={onChange}
       placeholder={placeholder}
-      className={`w-full min-h-[60px] ${value ? 'max-h-[160px]' : 'max-h-[60px]'} h-[60px] ${rounded} resize-none dark:bg-gray-700 bg-gray-100 outline-none dark:text-gray-50 text-gray-500 p-4 my-4 border-[1px] dark:border-gray-600 border-gray-200`}
+      className={`w-full min-h-[60px] ${value
+        ? 'max-h-[60px]'
+        : 'max-h-[60px]'} h-[60px] ${rounded} resize-none dark:bg-gray-700 bg-gray-100 outline-none dark:text-gray-50 text-gray-500 p-4 my-4 border-[1px] dark:border-gray-600 border-gray-200`}
     >
       {value}
     </textarea>

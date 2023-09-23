@@ -75,7 +75,11 @@ export default function Login() {
           onChange={handlePasswordChange}
           value={password}
         />
-        <button type="button" className="text-white" onClick={() => setShowPass((prevState) => !prevState)}>
+        <button
+          type="button"
+          className="text-gray-400 dark:text-white"
+          onClick={() => setShowPass((prevState) => !prevState)}
+        >
           {!showPass ? (
             <EyeOff className="absolute top-10 right-2" />
           ) : (
