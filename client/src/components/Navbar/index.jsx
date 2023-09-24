@@ -56,7 +56,12 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
 
   useEffect(() => {
     document.body.style.overflow = menuBars ? 'hidden' : 'unset';
+    document.body.style.paddingRight = menuBars ? '15px' : '0px';
   }, [menuBars]);
+
+  function gotTopHome() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   return (
     <div>
@@ -66,6 +71,7 @@ export default function Navbar({ theme, toggleTheme, isAth }) {
             <div className="flex items-center">
               <Link
                 to="/"
+                onClick={gotTopHome}
                 className="text-4xl font-bold text-sky-500 hover:text-sky-600 transition-all"
               >
                 SocialTech
