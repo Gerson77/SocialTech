@@ -4,6 +4,9 @@
 
 
 ### Cadastrao de usuário
+<h1>
+    <img src="demo/register-user.gif" align="center" />
+</h1>
 
 <h1>
     <img src="demo/register.png" align="center" />
@@ -11,6 +14,10 @@
 
 
 ### Página inicial e Modo escuro
+
+<h1>
+    <img src="demo/home-notification.gif" align="center" />
+</h1>
 
 <h1>
     <img src="demo/home.png" align="center" />
