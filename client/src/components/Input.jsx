@@ -11,8 +11,8 @@ export default function Input({
       onChange={onChange}
       placeholder={placeholder}
       className={`w-full ${error
-        ? 'border-red-500 shadow-md shadow-red-500/40'
-        : 'border-gray-100 dark:border-gray-600'} p-4 border-[1px] rounded-md my-6 text-sm dark:text-gray-100 text-gray-800 bg-gray-50 dark:bg-gray-700  focus:ring-0 focus:ring-offset-0`}
+        ? 'border-red-500  focus:border-red-500'
+        : 'border-gray-100 dark:border-gray-600'} p-4 border-[1px] rounded-md my-6 text-sm dark:text-gray-100 text-gray-800 bg-gray-50 dark:bg-gray-700 focus:ring-0 outline-none`}
     />
   );
 }

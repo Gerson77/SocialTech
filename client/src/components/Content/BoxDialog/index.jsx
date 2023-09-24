@@ -11,10 +11,10 @@ export default function BoxDialog({
         className="bg-gray-950 w-full h-screen fixed z-10 bg-opacity-80 backdrop-blur-sm"
         onClick={cancelAcion}
       />
-      <div className="bg-gray-50 z-20 dark:bg-gray-900 dark:text-gray-700 rounded-md flex items-center flex-col p-4 w-96 shadow-lg shadow-gray-700/70">
+      <div className="bg-gray-50 z-20 dark:text-gray-700 rounded-md flex items-center flex-col p-4 w-96 shadow-lg shadow-gray-700/70">
         <Info className="w-36 h-36 text-orange-300" />
-        <h2 className="font-bold text-2xl dark:text-gray-200">{title}</h2>
-        <p className="font-medium text-gray-500 dark:text-gray-400">{textEvent}</p>
+        <h2 className="font-bold text-2xl dark:text-gray-600">{title}</h2>
+        <p className="font-medium text-gray-500">{textEvent}</p>
         <div className="flex items-center justify-center gap-2 p-2 text-white">
           {!buttonEvent ? (
             <>
